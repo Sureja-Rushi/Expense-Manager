@@ -2,7 +2,7 @@ import React from "react";
 import HomeImage from "../../assets/Expense_Manager.jpg";
 import { useNavigate } from "react-router-dom";
 
-const LandinPage = () => {
+const LandingPage = () => {
 
   const navigate = useNavigate();
 
@@ -48,4 +48,4 @@ const LandinPage = () => {
   );
 };
 
-export default LandinPage;
+export default LandingPage;

@@ -54,7 +54,7 @@ const Dashboard = () => {
               <div
                 id="dropdown"
                 className={`z-10 ${
-                  isOpen ? "fixed" : "hidden"
+                  isOpen ? "absolute" : "hidden"
                 } bg-white divide-y divide-gray-100 rounded-md shadow shadow-slate-800 dark:bg-gray-700 mt-2 w-52`}
               >
                 <ul
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 >
                   <li>
                     <Link
-                      to="/" // Change href to "to" for React Router Link
+                      to="/createwallet" // Change href to "to" for React Router Link
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Wallet
