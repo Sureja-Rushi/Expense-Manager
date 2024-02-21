@@ -1,28 +1,28 @@
-package com.example.WalletApplication.Entity;
+package com.example.AccountApp.entity;
 
 import jakarta.persistence.*;
 import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
-public class Wallet {
+public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
-    private String walletName;
-    private String walletNumber;
+    private String accountName;
+    private String acountNumber;
     private String description;
     private String priority;
     private Double currentBalance;
 
-    public Wallet() {
+    public Account() {
     }
 
-    public Wallet(Long id, String walletName, String walletNumber, String description, String priority, Double currentBalance) {
+    public Account(Long id, String accountName, String acountNumber, String description, String priority, Double currentBalance) {
         this.id = id;
-        this.walletName = walletName;
-        this.walletNumber = walletNumber;
+        this.accountName = accountName;
+        this.acountNumber = acountNumber;
         this.description = description;
         this.priority = priority;
         this.currentBalance = currentBalance;
@@ -36,20 +36,20 @@ public class Wallet {
         this.id = id;
     }
 
-    public String getWalletName() {
-        return walletName;
+    public String getAccountName() {
+        return accountName;
     }
 
-    public void setWalletName(String walletName) {
-        this.walletName = walletName;
+    public void setAccountName(String accountName) {
+        this.accountName = accountName;
     }
 
-    public String getWalletNumber() {
-        return walletNumber;
+    public String getAcountNumber() {
+        return acountNumber;
     }
 
-    public void setWalletNumber(String walletNumber) {
-        this.walletNumber = walletNumber;
+    public void setAcountNumber(String acountNumber) {
+        this.acountNumber = acountNumber;
     }
 
     public String getDescription() {
@@ -80,10 +80,10 @@ public class Wallet {
 
     @Override
     public String toString() {
-        return "Wallet{" +
+        return "Account{" +
                 "id=" + id +
-                ", walletName='" + walletName + '\'' +
-                ", walletNumber='" + walletNumber + '\'' +
+                ", accountName='" + accountName + '\'' +
+                ", acountNumber='" + acountNumber + '\'' +
                 ", description='" + description + '\'' +
                 ", priority='" + priority + '\'' +
                 ", currentBalance=" + currentBalance +
@@ -94,6 +94,7 @@ public class Wallet {
 
     @PrePersist
     public void setCurrentBalance(){ this.currentBalance = (double) 0; }
+
 
 
 }

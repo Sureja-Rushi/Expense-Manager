@@ -3,8 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const CreateWallet = () => {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const [walletAttributes, setWalletAttributes] = useState({
     walletName: "",
@@ -22,16 +21,16 @@ const CreateWallet = () => {
   };
 
   const onSubmitHandler = (event) => {
-    axios.post("http://localhost:8080/wallet", walletAttributes).then((res) => {
-        console.log("success");
-        setTimeout(() => {
-            navigate("/dashboard");
-        })
-    }).catch((error) => {   
+    axios
+      .post("http://localhost:8080/wallet", walletAttributes)
+      .then((res) => {
+          navigate("/dashboard");
+      })
+      .catch((error) => {
         alert("fail");
-    })
+      });
     event.preventDefault();
-  }
+  };
 
   return (
     <div>

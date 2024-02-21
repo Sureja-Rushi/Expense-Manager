@@ -21,7 +21,7 @@ const Dashboard = () => {
           </p>
         </div>
         <hr className="border-t border-gray-400 my-6 w-[94%] m-auto "/>
-        <div className="flex flex-row">
+        <div className="flex flex-row ">
           <div className="w-[30%] h-fit pb-8">
             <div className=" ms-[8%] my-2">
               <button

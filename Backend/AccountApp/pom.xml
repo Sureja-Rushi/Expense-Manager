@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>WalletApplication</artifactId>
+	<artifactId>AccountApplication</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>WalletApplication</name>
-	<description>Personal Transaction Management</description>
+	<name>AccountApp</name>
+	<description>Personal Transaction Manager</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
