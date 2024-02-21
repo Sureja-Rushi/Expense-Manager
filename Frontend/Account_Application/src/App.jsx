@@ -4,7 +4,7 @@ import Navbar from "./common/navbar/Navbar";
 import LandingPage from "./pages/landing page/LandingPage";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import CreateWallet from "./pages/forms/CreateWallet";
+import CreateAccount from "./pages/forms/CreateAccount";
 
 function App() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/createwallet" element={<CreateWallet />} />
+          <Route path="/createaccount" element={<CreateAccount />} />
         </Routes>
         {/* <Navbar />
         <LandinPage /> */}

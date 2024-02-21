@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const DashboardWallets = () => {
+const Accounts = () => {
   return (
     <div className="flex justify-center my-2">
       <div class=" border border-black w-full mx-8 rounded-sm bg-[#F6F6F6]">
@@ -44,4 +44,4 @@ const DashboardWallets = () => {
   );
 };
 
-export default DashboardWallets;
+export default Accounts;

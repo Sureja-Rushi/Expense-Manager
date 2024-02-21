@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const CreateWallet = () => {
+const CreateAccount = () => {
   const navigate = useNavigate();
 
   const [walletAttributes, setWalletAttributes] = useState({
@@ -93,4 +93,4 @@ const CreateWallet = () => {
   );
 };
 
-export default CreateWallet;
+export default CreateAccount;

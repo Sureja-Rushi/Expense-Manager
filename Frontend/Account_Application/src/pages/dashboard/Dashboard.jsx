@@ -1,7 +1,7 @@
 import React, { useState } from "react"; // Import useState for managing dropdown state
 import { Link } from "react-router-dom";
 import Navbar from "../../common/navbar/Navbar";
-import DashboardWallets from "./DashboardWallets";
+import Accounts from "./Accounts";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false); // State for managing dropdown visibility
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 >
                   <li>
                     <Link
-                      to="/createwallet" // Change href to "to" for React Router Link
+                      to="/createaccount" // Change href to "to" for React Router Link
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Wallet
@@ -93,10 +93,10 @@ const Dashboard = () => {
           {/* <hr className="border-t border-black my-6 w-[80%] m-auto " /> */}
 
           <div className="w-[70%] border-l border-l-gray-400">
-            <DashboardWallets />
-            <DashboardWallets />
-            <DashboardWallets />
-            <DashboardWallets />
+            <Accounts />
+            <Accounts />
+            <Accounts />
+            <Accounts />
           </div>
         </div>
       </div>
