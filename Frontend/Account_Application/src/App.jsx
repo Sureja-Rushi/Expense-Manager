@@ -5,6 +5,7 @@ import LandingPage from "./pages/landing page/LandingPage";
 import Dashboard from "./pages/dashboard/Dashboard";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import CreateAccount from "./pages/forms/CreateAccount";
+import NotFound from "./common/NotFound";
 
 function App() {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/createaccount" element={<CreateAccount />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
         {/* <Navbar />
         <LandinPage /> */}

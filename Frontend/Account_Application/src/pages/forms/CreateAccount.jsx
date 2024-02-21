@@ -5,24 +5,24 @@ import { useNavigate } from "react-router-dom";
 const CreateAccount = () => {
   const navigate = useNavigate();
 
-  const [walletAttributes, setWalletAttributes] = useState({
-    walletName: "",
-    walletNumber: "",
+  const [accountAttributes, setAccountAttributes] = useState({
+    accountName: "",
+    acountNumber: "",
     description: "",
     priority: "",
   });
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
-    setWalletAttributes({
-      ...walletAttributes,
+    setAccountAttributes({
+      ...accountAttributes,
       [name]: value,
     });
   };
 
   const onSubmitHandler = (event) => {
     axios
-      .post("http://localhost:8080/wallet", walletAttributes)
+      .post("http://localhost:8080/account", accountAttributes)
       .then((res) => {
           navigate("/dashboard");
       })
@@ -46,7 +46,7 @@ const CreateAccount = () => {
                     type="text"
                     className="w-full px-4 py-3 leading-tight bg-gray-200 border rounded-lg focus:outline-none focus:bg-white focus:border-gray-500"
                     placeholder="Account Name"
-                    name="walletName"
+                    name="accountName"
                     onChange={onChangeHandler}
                   />
                 </div>
@@ -55,7 +55,7 @@ const CreateAccount = () => {
                     type="text"
                     className="w-full px-4 py-3 leading-tight bg-gray-200 border rounded-lg focus:outline-none focus:bg-white focus:border-gray-500"
                     placeholder="Account No"
-                    name="walletNumber"
+                    name="acountNumber"
                     onChange={onChangeHandler}
                   />
                 </div>
