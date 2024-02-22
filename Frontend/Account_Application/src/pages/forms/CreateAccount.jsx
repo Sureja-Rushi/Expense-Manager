@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {createnewAccount} from "../../actions/Actions";
 import { useNavigate } from "react-router-dom";
 
 const CreateAccount = () => {
@@ -7,10 +9,18 @@ const CreateAccount = () => {
 
   const [accountAttributes, setAccountAttributes] = useState({
     accountName: "",
-    acountNumber: "",
+    accountNumber: "",
     description: "",
     priority: "",
+    errors: ""
   });
+
+  const errors = useSelector(state => state.errors);
+  const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   setAccountAttributes(prevState => ({...prevState, errors}));
+  // }, [errors]);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -20,15 +30,9 @@ const CreateAccount = () => {
     });
   };
 
-  const onSubmitHandler = (event) => {
-    axios
-      .post("http://localhost:8080/account", accountAttributes)
-      .then((res) => {
-          navigate("/dashboard");
-      })
-      .catch((error) => {
-        alert("fail");
-      });
+  const onSubmitHandler = async (event) => {
+    dispatch(createnewAccount(accountAttributes));
+    navigate("/dashboard");
     event.preventDefault();
   };
 
@@ -55,7 +59,7 @@ const CreateAccount = () => {
                     type="text"
                     className="w-full px-4 py-3 leading-tight bg-gray-200 border rounded-lg focus:outline-none focus:bg-white focus:border-gray-500"
                     placeholder="Account No"
-                    name="acountNumber"
+                    name="accountNumber"
                     onChange={onChangeHandler}
                   />
                 </div>

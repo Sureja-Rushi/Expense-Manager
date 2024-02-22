@@ -1,7 +1,9 @@
-import React, { useState } from "react"; // Import useState for managing dropdown state
+import React, { useEffect, useState } from "react"; // Import useState for managing dropdown state
 import { Link } from "react-router-dom";
 import Navbar from "../../common/navbar/Navbar";
 import Accounts from "./Accounts";
+import { useDispatch, useSelector } from "react-redux";
+import { getAccounts } from "../../actions/Actions";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false); // State for managing dropdown visibility
@@ -10,6 +12,19 @@ const Dashboard = () => {
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAccounts());
+  }, [dispatch]);
+
+  const accounts = useSelector((state) => state.account.accounts);
+
+  const accountComponent = accounts.map(account => (
+    <Accounts key={account.id} account={account} />
+));
+  console.log(accountComponent);
 
   return (
     <div className="w-screen">
@@ -20,7 +35,7 @@ const Dashboard = () => {
             My Money Pouches
           </p>
         </div>
-        <hr className="border-t border-gray-400 my-6 w-[94%] m-auto "/>
+        <hr className="border-t border-gray-400 my-6 w-[94%] m-auto " />
         <div className="flex flex-row ">
           <div className="w-[30%] h-fit pb-8">
             <div className=" ms-[8%] my-2">
@@ -93,10 +108,7 @@ const Dashboard = () => {
           {/* <hr className="border-t border-black my-6 w-[80%] m-auto " /> */}
 
           <div className="w-[70%] border-l border-l-gray-400">
-            <Accounts />
-            <Accounts />
-            <Accounts />
-            <Accounts />
+            {accountComponent}
           </div>
         </div>
       </div>

@@ -1,7 +1,6 @@
 package com.example.AccountApp.entity;
 
 import jakarta.persistence.*;
-import org.antlr.v4.runtime.misc.NotNull;
 
 @Entity
 public class Account {
@@ -9,9 +8,9 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @NotNull
+
     private String accountName;
-    private String acountNumber;
+    private String accountNumber;
     private String description;
     private String priority;
     private Double currentBalance;
@@ -19,10 +18,10 @@ public class Account {
     public Account() {
     }
 
-    public Account(Long id, String accountName, String acountNumber, String description, String priority, Double currentBalance) {
+    public Account(Long id, String accountName, String accountNumber, String description, String priority, Double currentBalance) {
         this.id = id;
         this.accountName = accountName;
-        this.acountNumber = acountNumber;
+        this.accountNumber = accountNumber;
         this.description = description;
         this.priority = priority;
         this.currentBalance = currentBalance;
@@ -44,12 +43,12 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public String getAcountNumber() {
-        return acountNumber;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setAcountNumber(String acountNumber) {
-        this.acountNumber = acountNumber;
+    public void setAccountNumber(String acountNumber) {
+        this.accountNumber = acountNumber;
     }
 
     public String getDescription() {
@@ -83,7 +82,7 @@ public class Account {
         return "Account{" +
                 "id=" + id +
                 ", accountName='" + accountName + '\'' +
-                ", acountNumber='" + acountNumber + '\'' +
+                ", accountNumber='" + accountNumber + '\'' +
                 ", description='" + description + '\'' +
                 ", priority='" + priority + '\'' +
                 ", currentBalance=" + currentBalance +

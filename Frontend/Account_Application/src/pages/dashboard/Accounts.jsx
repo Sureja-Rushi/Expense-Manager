@@ -1,22 +1,25 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Accounts = () => {
+const Accounts = (props) => {
+
+  const account = props.account;
+
   return (
     <div className="flex justify-center my-2">
       <div class=" border border-black w-full mx-8 rounded-sm bg-[#F6F6F6]">
         <div class="bg-light p-4 mb-3 ">
           <div class="flex flex-wrap">
             <div class="w-full md:w-1/3 flex flex-col justify-center">
-              <p className="text-3xl">UBL Account</p><br />
+              <p className="text-3xl">{account.accountName}</p><br />
               <p className="text-base">
                 <span className="font-semibold">Account Number:</span>
-                <span className="">1234-1234-1234-1234</span>
+                <span className="">{account.accountNumber}</span>
               </p>
             </div>
             <div class="w-full md:w-1/3 text-center flex flex-col justify-center">
               <p className="text-xl">Balance</p>
-              <p class="text-3xl font-bold">Rs. 27000</p>
+              <p class="text-3xl font-bold">{account.currentBalance}</p>
             </div>
             <div class="w-full md:w-1/3 mt-4 md:mt-0 ">
               <ul class="list-group">
