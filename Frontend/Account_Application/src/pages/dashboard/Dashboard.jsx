@@ -2,28 +2,43 @@ import React, { useEffect, useState } from "react"; // Import useState for manag
 import { Link } from "react-router-dom";
 import Navbar from "../../common/navbar/Navbar";
 import Accounts from "./Accounts";
-import { useDispatch, useSelector } from "react-redux";
-import { getAccounts } from "../../actions/Actions";
+// import { useDispatch, useSelector } from "react-redux";
+// import { getAccounts } from "../../actions/Actions";
+import axios from "axios";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false); // State for managing dropdown visibility
+  const [accounts, setAccounts] = useState([]);
 
   // Function to toggle dropdown visibility
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //   dispatch(getAccounts());
+  // }, [dispatch]);
+
+  // const accounts = useSelector((state) => state.account.accounts);
 
   useEffect(() => {
-    dispatch(getAccounts());
-  }, [dispatch]);
+    axios
+      .get("http://localhost:8080/account")
+      .then((response) => {
+        setAccounts(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
 
-  const accounts = useSelector((state) => state.account.accounts);
 
-  const accountComponent = accounts.map(account => (
+  const accountComponent = accounts.map((account) => (
     <Accounts key={account.id} account={account} />
-));
+  ));
+
   console.log(accountComponent);
 
   return (
@@ -109,6 +124,7 @@ const Dashboard = () => {
 
           <div className="w-[70%] border-l border-l-gray-400">
             {accountComponent}
+            {/* <Accounts /> */}
           </div>
         </div>
       </div>

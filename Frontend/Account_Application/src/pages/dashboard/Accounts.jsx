@@ -1,9 +1,37 @@
+import axios from "axios";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Accounts = (props) => {
 
+  const navigate = useNavigate();
+
   const account = props.account;
+  console.log(account);
+
+  const handleDelete = () => {
+    if (confirm(`Are you sure to delete ${account.accountName} account?`)) {
+      axios
+        .delete(`http://localhost:8080/account/${account.id}`)
+        .then((response) => {
+          window.location.reload();
+          // alert("deleted Successfully...");
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    }
+  };
+
+  const handleUpdate = () => {
+
+    navigate(`/updateaccount/${account.id}`);
+
+  }
+
+  console.log(account.currentBalance);
+
+  // console.log(account.accountNumber === "")
 
   return (
     <div className="flex justify-center my-2">
@@ -11,10 +39,23 @@ const Accounts = (props) => {
         <div class="bg-light p-4 mb-3 ">
           <div class="flex flex-wrap">
             <div class="w-full md:w-1/3 flex flex-col justify-center">
-              <p className="text-3xl">{account.accountName}</p><br />
-              <p className="text-base">
+              <p className="text-3xl">{account.accountName}</p>
+              <br />
+              <p
+                className={`${
+                  account.accountNumber === "" ? "hidden" : ""
+                } text-base`}
+              >
                 <span className="font-semibold">Account Number:</span>
                 <span className="">{account.accountNumber}</span>
+              </p>
+              <p
+                className={`${
+                  account.accountNumber === "" ? "" : "hidden"
+                } text-base`}
+              >
+                <span className="font-semibold">Description: </span>
+                <span className="">{account.description}</span>
               </p>
             </div>
             <div class="w-full md:w-1/3 text-center flex flex-col justify-center">
@@ -28,15 +69,19 @@ const Accounts = (props) => {
                     Transactions
                   </p>
                 </Link>
-                <Link href="walletForm.html">
-                  <p class="bg-blue-100 border border-blue-300 text-blue-700 p-2 mb-1 rounded-sm">
+                {/* <Link href="walletForm.html"> */}
+                  <button class="bg-blue-100 border border-blue-300 text-blue-700 p-2 mb-1 rounded-sm" 
+                  onClick={handleUpdate}>
                     Update Account
-                  </p>
-                </Link>
-                <Link href="/">
-                  <p class="bg-red-100 text-red-700 border border-red-300 p-2 mb-1 rounded-sm">
+                  </button>
+                {/* </Link> */}
+                <Link href="/dashboard">
+                  <button
+                    class="bg-red-100 text-red-700 border border-red-300 p-2 mb-1 rounded-sm w-full flex"
+                    onClick={handleDelete}
+                  >
                     Delete Account
-                  </p>
+                  </button>
                 </Link>
               </ul>
             </div>

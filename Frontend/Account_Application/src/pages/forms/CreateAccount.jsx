@@ -12,11 +12,10 @@ const CreateAccount = () => {
     accountNumber: "",
     description: "",
     priority: "",
-    errors: ""
   });
 
-  const errors = useSelector(state => state.errors);
-  const dispatch = useDispatch();
+  // const errors = useSelector(state => state.errors);
+  // const dispatch = useDispatch();
 
   // useEffect(() => {
   //   setAccountAttributes(prevState => ({...prevState, errors}));
@@ -30,9 +29,18 @@ const CreateAccount = () => {
     });
   };
 
-  const onSubmitHandler = async (event) => {
-    dispatch(createnewAccount(accountAttributes));
-    navigate("/dashboard");
+  const onSubmitHandler = (event) => {
+    // dispatch(createnewAccount(accountAttributes));
+    axios
+      .post("http://localhost:8080/account", accountAttributes)
+      .then((response) => {
+          alert("success");
+          navigate("/dashboard");
+        // console.log(newAccount);
+      })
+      .catch((error) => {
+        alert(error);
+      });
     event.preventDefault();
   };
 
@@ -44,7 +52,7 @@ const CreateAccount = () => {
             <div className="col-span-2 md:col-span-1 mx-auto">
               <h5 className="text-4xl text-center">Create Wallet</h5>
               <hr className="border-t border-gray-400 my-6 w-[100%] m-auto " />
-              <form onSubmit={onSubmitHandler}>
+              <form onSubmit={(event) => onSubmitHandler(event)}>
                 <div className="mb-4">
                   <input
                     type="text"
