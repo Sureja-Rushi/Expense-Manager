@@ -3,7 +3,6 @@ import React from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Accounts = (props) => {
-
   const navigate = useNavigate();
 
   const account = props.account;
@@ -24,10 +23,8 @@ const Accounts = (props) => {
   };
 
   const handleUpdate = () => {
-
     navigate(`/updateaccount/${account.id}`);
-
-  }
+  };
 
   console.log(account.currentBalance);
 
@@ -70,10 +67,12 @@ const Accounts = (props) => {
                   </p>
                 </Link>
                 {/* <Link href="walletForm.html"> */}
-                  <button class="bg-blue-100 border border-blue-300 text-blue-700 p-2 mb-1 rounded-sm" 
-                  onClick={handleUpdate}>
-                    Update Account
-                  </button>
+                <button
+                  class="bg-blue-100 border border-blue-300 text-blue-700 p-2 mb-1 w-full flex rounded-sm"
+                  onClick={handleUpdate}
+                >
+                  Update Account
+                </button>
                 {/* </Link> */}
                 <Link href="/dashboard">
                   <button

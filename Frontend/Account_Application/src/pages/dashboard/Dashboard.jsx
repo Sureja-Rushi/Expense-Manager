@@ -9,6 +9,7 @@ import axios from "axios";
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false); // State for managing dropdown visibility
   const [accounts, setAccounts] = useState([]);
+  const [balance, setBalance] = useState(0);
 
   // Function to toggle dropdown visibility
   const toggleDropdown = () => {
@@ -34,12 +35,32 @@ const Dashboard = () => {
       });
   }, []);
 
+  // console.log(accounts);
+
+  const totalAmount = () => {
+    let totalBalance = 0;
+    for (let i = 0; i < accounts.length; i++) {
+      totalBalance += accounts[i].currentBalance;
+    }
+    setBalance(totalBalance);
+  };
+
+  useEffect(() => {
+    // let totalBalance = 0;
+    // accounts.forEach(account => {
+    //   totalBalance += account.currentBalance;
+    // });
+    // setBalance(prevBalance => prevBalance + totalBalance);
+    totalAmount();
+  }, [accounts]);
+
+  console.log(balance);
 
   const accountComponent = accounts.map((account) => (
     <Accounts key={account.id} account={account} />
   ));
 
-  console.log(accountComponent);
+  // console.log(accountComponent);
 
   return (
     <div className="w-screen">
@@ -47,7 +68,7 @@ const Dashboard = () => {
       <div className="pb-8">
         <div className="">
           <p className="text-5xl pt-4 text-black flex justify-center items-center font-thin">
-            My Money Pouches
+            My Accounts
           </p>
         </div>
         <hr className="border-t border-gray-400 my-6 w-[94%] m-auto " />
@@ -114,7 +135,7 @@ const Dashboard = () => {
               <div class="bg-blend-lighten bg-[#28a745] w-[85%] text-white text-center flex justify-center py-2 rounded-sm ">
                 <div class="card-header">
                   <h4 class="text-2xl my-1">Pocket Money (Total)</h4>
-                  <h1 class="text-4xl my-1">Rs. 30000</h1>
+                  <h1 class="text-4xl my-1">Rs. {balance}</h1>
                 </div>
               </div>
             </div>

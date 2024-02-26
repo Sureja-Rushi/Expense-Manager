@@ -1,6 +1,9 @@
 package com.example.AccountApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Account {
@@ -15,16 +18,21 @@ public class Account {
     private String priority;
     private Double currentBalance;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "account")
+    @JsonManagedReference
+    private List<Transaction> transactions;
+
     public Account() {
     }
 
-    public Account(Long id, String accountName, String accountNumber, String description, String priority, Double currentBalance) {
+    public Account(Long id, String accountName, String accountNumber, String description, String priority, Double currentBalance, List<Transaction> transactions) {
         this.id = id;
         this.accountName = accountName;
         this.accountNumber = accountNumber;
         this.description = description;
         this.priority = priority;
         this.currentBalance = currentBalance;
+        this.transactions = transactions;
     }
 
     public Long getId() {
@@ -75,7 +83,13 @@ public class Account {
         this.currentBalance = currentBalance;
     }
 
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
 
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
 
     @Override
     public String toString() {
