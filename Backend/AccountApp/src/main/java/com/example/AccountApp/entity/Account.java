@@ -1,5 +1,6 @@
 package com.example.AccountApp.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -18,8 +19,8 @@ public class Account {
     private String priority;
     private Double currentBalance;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "account")
-    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
+    @JsonIgnore
     private List<Transaction> transactions;
 
     public Account() {

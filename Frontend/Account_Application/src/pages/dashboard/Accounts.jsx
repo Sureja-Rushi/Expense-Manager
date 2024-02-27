@@ -61,11 +61,12 @@ const Accounts = (props) => {
             </div>
             <div class="w-full md:w-1/3 mt-4 md:mt-0 ">
               <ul class="list-group">
-                <Link href="transactions.html">
-                  <p class="bg-green-100 border border-green-300 text-green-700 p-2 mb-1 rounded-sm">
-                    Transactions
-                  </p>
-                </Link>
+                <button class="bg-green-100 border border-green-300 text-green-700 p-2 mb-1 rounded-sm w-full flex"
+                onClick={() => {
+                  navigate(`/transactions/${account.id}`)
+                }}>
+                  Transactions
+                </button>
                 {/* <Link href="walletForm.html"> */}
                 <button
                   class="bg-blue-100 border border-blue-300 text-blue-700 p-2 mb-1 w-full flex rounded-sm"

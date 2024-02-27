@@ -25,6 +25,21 @@ public class TransactionServiceImpl implements TransactionService{
     }
 
     @Override
+    public Transaction getTransactionById(String accountId, String transactionId) {
+        Optional<Account> account = accountRepository.findById(Long.parseLong(accountId));
+        if(account.isPresent()){
+            Account existingAccount = account.get();
+
+            for (Transaction transaction : existingAccount.getTransactions()) {
+                if (transaction.getId().equals(Long.parseLong(transactionId))) {
+                    return transaction;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
     public List<Transaction> getTransactionsByAccount(String accountId) {
         Optional<Account> account = accountRepository.findById(Long.parseLong(accountId));
         if(account.isPresent()){
@@ -46,5 +61,38 @@ public class TransactionServiceImpl implements TransactionService{
         else{
             return null;
         }
+    }
+
+    @Override
+    public Transaction updateTransaction(String accountId, String transactionId, Transaction transaction) {
+        Optional<Account> account = accountRepository.findById(Long.parseLong(accountId));
+        if(account.isPresent()){
+            Account existingAccount = account.get();
+
+            for (Transaction transactions : existingAccount.getTransactions()) {
+                if (transactions.getId().equals(Long.parseLong(transactionId))) {
+                    transaction.setId(Long.parseLong(transactionId));
+                    transaction.setTransactionDate(transactions.getTransactionDate());
+                    transaction.setAccount(account.get());
+                    return transactionRepository.save(transaction);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean deleteTransaction(String accountId, String transactionId) {
+        Optional<Account> account = accountRepository.findById(Long.parseLong(accountId));
+        if(account.isPresent()){
+            List<Transaction> transactions = transactionRepository.findByAccount(account.get());
+            for(Transaction transaction : transactions ){
+                if(transaction.getId() == (Long.parseLong(transactionId))){
+                    transactionRepository.delete(transaction);
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

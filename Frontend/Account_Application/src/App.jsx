@@ -7,6 +7,8 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import CreateAccount from "./pages/forms/CreateAccount";
 import NotFound from "./common/NotFound";
 import UpdateAccount from "./pages/forms/UpdateAccount";
+import Transactions from "./pages/transactions/Transactions";
+import TransactionPage from "./pages/transactions/TransactionPage";
 // import { Provider } from "react-redux";
 // import store from "./Store.jsx";
 
@@ -22,6 +24,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/createaccount" element={<CreateAccount />} />
           <Route path="/updateaccount/*" element={<UpdateAccount />} />
+          <Route path="/transactions/*" element={<TransactionPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         {/* <Navbar />

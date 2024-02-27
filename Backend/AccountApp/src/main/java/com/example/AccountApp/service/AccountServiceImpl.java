@@ -22,6 +22,7 @@ public class AccountServiceImpl implements AccountService{
     @Override
     public Account updateAccount(Account account) {
         if(account.getId() != null){
+
             accountRepository.save(account);
         }
         return account;
