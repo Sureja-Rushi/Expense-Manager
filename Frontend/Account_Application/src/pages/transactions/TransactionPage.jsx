@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import Transactions from "./Transactions";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const TransactionPage = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const [transactions, setTransactions] = useState([]);
+  const [account, setAccount] = useState([]);
 
   const getIdFromUrl = (url) => {
     const normalizedUrl = url.endsWith("/") ? url.slice(0, -1) : url;
@@ -16,6 +19,19 @@ const TransactionPage = () => {
 
   useEffect(() => {
     axios
+      .get(`http://localhost:8080/account/${id}`)
+      .then((response) => {
+        setAccount(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  console.log(account);
+
+  useEffect(() => {
+    axios
       .get(`http://localhost:8080/transaction/${id}`)
       .then((response) => {
         setTransactions(response.data);
@@ -23,12 +39,11 @@ const TransactionPage = () => {
       .catch((error) => {
         alert(error);
       });
-  },[]);
+  }, []);
 
   const transactionsComponent = transactions.map((transaction) => (
     <Transactions key={transaction.id} transaction={transaction} />
   ));
-
 
   return (
     <div>
@@ -37,13 +52,26 @@ const TransactionPage = () => {
           Back
         </a>
         <i class="fas fa-plus-circle"></i> Record new Transaction */}
+
         <div className="w-[90%] mx-auto">
+          <div className="mt-4">
+            <button
+              id="dropdownDefaultButton"
+              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-md text-base px-5 py-2.5 w-fit text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              type="button"
+              onClick={() => {
+                navigate("/addTransaction", {state: {account : account}});
+              }}
+            >
+              Add New Transaction
+            </button>
+          </div>
           <div class="text-center flex justify-around p-2 py-4 my-5 border rounded-sm text-2xl bg-blue-300">
             <p>
-              Account Name: <span className="font-semibold">Purv</span>
+              Account Name: <span className="font-semibold">{account.accountName}</span>
             </p>
             <p>
-              Availabe Balance: <span className="font-semibold">Rs. 27000</span>
+              Total Money Transaction: <span className="font-semibold">Rs. 27000</span>
             </p>
           </div>
 

@@ -21,7 +21,7 @@ public class TransactionServiceImpl implements TransactionService{
 
     @Override
     public List<Transaction> getAllTransactions() {
-        return transactionRepository.findAll();
+        return transactionRepository.findAllByOrderByTransactionDateDesc();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class TransactionServiceImpl implements TransactionService{
     public List<Transaction> getTransactionsByAccount(String accountId) {
         Optional<Account> account = accountRepository.findById(Long.parseLong(accountId));
         if(account.isPresent()){
-            return transactionRepository.findByAccount(account.get());
+            return transactionRepository.findByAccountOrderByTransactionDateDesc(account.get());
         }
         else{
             return null;
@@ -72,7 +72,7 @@ public class TransactionServiceImpl implements TransactionService{
             for (Transaction transactions : existingAccount.getTransactions()) {
                 if (transactions.getId().equals(Long.parseLong(transactionId))) {
                     transaction.setId(Long.parseLong(transactionId));
-                    transaction.setTransactionDate(transactions.getTransactionDate());
+//                    transaction.setTransactionDate(transactions.getTransactionDate());
                     transaction.setAccount(account.get());
                     return transactionRepository.save(transaction);
                 }
