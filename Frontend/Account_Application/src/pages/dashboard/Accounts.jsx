@@ -1,9 +1,17 @@
 import axios from "axios";
 import React from "react";
+import { useState, useEffect } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 
 const Accounts = (props) => {
   const navigate = useNavigate();
+
+  const [transactions, setTransactions] = useState([]);
+  const [incomeTransaction, setIncomeTransaction] = useState(0);
+  const [expenseTransaction, setExpenseTransaction] = useState(0);
+  const [netBalance, setNetBalance] = useState(0);
+
+  
 
   const account = props.account;
   console.log(account);
@@ -28,6 +36,49 @@ const Accounts = (props) => {
 
   console.log(account.currentBalance);
 
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8080/transaction/${account.id}`)
+      .then((response) => {
+        setTransactions(response.data);
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  }, []);
+
+  const totalTransaction = () => {
+    let totalExpense = 0;
+    let totalIncome = 0;
+
+    for (let i = 0; i < transactions.length; i++) {
+      if (transactions[i].type == 1) {
+        totalIncome = totalIncome + transactions[i].amount;
+      } else {
+        totalExpense = totalExpense + transactions[i].amount;
+      }
+    }
+
+    setExpenseTransaction(totalExpense);
+    setIncomeTransaction(totalIncome);
+    setNetBalance(Math.abs(incomeTransaction - expenseTransaction));
+  };
+
+  useEffect(() => {
+    totalTransaction();
+  }, [transactions]);
+
+  const [accountAttributes, setAccountAttributes] = useState({
+    accountName: account.accountName,
+    accountNumber: account.accountNumber,
+    description: account.description,
+    priority: account.priority,
+    currentBalance: ''
+  });
+
+
+
+  
   // console.log(account.accountNumber === "")
 
   return (
@@ -56,8 +107,8 @@ const Accounts = (props) => {
               </p>
             </div>
             <div class="w-full md:w-1/3 text-center flex flex-col justify-center">
-              <p className="text-xl">Balance</p>
-              <p class="text-3xl font-bold">{account.currentBalance}</p>
+              <p className="text-xl">Transaction</p>
+              <p class="text-3xl font-bold">{Math.abs(incomeTransaction - expenseTransaction)}</p>
             </div>
             <div class="w-full md:w-1/3 mt-4 md:mt-0 ">
               <ul class="list-group">

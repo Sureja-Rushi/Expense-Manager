@@ -9,6 +9,9 @@ const TransactionPage = () => {
 
   const [transactions, setTransactions] = useState([]);
   const [account, setAccount] = useState([]);
+  const [incomeTransaction, setIncomeTransaction] = useState(0);
+  const [expenseTransaction, setExpenseTransaction] = useState(0);
+  const [netBalance, setNetBalance] = useState(0);
 
   const getIdFromUrl = (url) => {
     const normalizedUrl = url.endsWith("/") ? url.slice(0, -1) : url;
@@ -16,6 +19,8 @@ const TransactionPage = () => {
   };
 
   const id = getIdFromUrl(location.pathname);
+
+  
 
   useEffect(() => {
     axios
@@ -41,9 +46,33 @@ const TransactionPage = () => {
       });
   }, []);
 
+  const totalTransaction = () => {
+    let totalExpense = 0;
+    let totalIncome = 0;
+
+    for (let i = 0; i < transactions.length; i++) {
+      if (transactions[i].type == 1) {
+        totalIncome = totalIncome + transactions[i].amount;
+      } else {
+        totalExpense = totalExpense + transactions[i].amount;
+      }
+    }
+
+    setExpenseTransaction(totalExpense);
+    setIncomeTransaction(totalIncome);
+  };
+
+  useEffect(() => {
+    totalTransaction();
+  }, [transactions]);
+
+  
+
   const transactionsComponent = transactions.map((transaction) => (
     <Transactions key={transaction.id} transaction={transaction} />
   ));
+
+  
 
   return (
     <div>
@@ -60,7 +89,7 @@ const TransactionPage = () => {
               className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-md text-base px-5 py-2.5 w-fit text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               type="button"
               onClick={() => {
-                navigate("/addTransaction", {state: {account : account}});
+                navigate("/addTransaction", { state: { account: account } });
               }}
             >
               Add New Transaction
@@ -68,10 +97,12 @@ const TransactionPage = () => {
           </div>
           <div class="text-center flex justify-around p-2 py-4 my-5 border rounded-sm text-2xl bg-blue-300">
             <p>
-              Account Name: <span className="font-semibold">{account.accountName}</span>
+              Account Name:{" "}
+              <span className="font-semibold">{account.accountName}</span>
             </p>
             <p>
-              Total Money Transaction: <span className="font-semibold">Rs. 27000</span>
+              Transaction activity: 
+              <span className="font-semibold"> Rs. {Math.abs(incomeTransaction - expenseTransaction)}</span>
             </p>
           </div>
 
