@@ -19,6 +19,10 @@ public class Account {
     private String priority;
     private Double currentBalance;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "account")
     @JsonIgnore
     private List<Transaction> transactions;
@@ -26,13 +30,15 @@ public class Account {
     public Account() {
     }
 
-    public Account(Long id, String accountName, String accountNumber, String description, String priority, Double currentBalance, List<Transaction> transactions) {
+
+    public Account(Long id, String accountName, String accountNumber, String description, String priority, Double currentBalance, User user, List<Transaction> transactions) {
         this.id = id;
         this.accountName = accountName;
         this.accountNumber = accountNumber;
         this.description = description;
         this.priority = priority;
         this.currentBalance = currentBalance;
+        this.user = user;
         this.transactions = transactions;
     }
 
@@ -90,6 +96,14 @@ public class Account {
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @Override

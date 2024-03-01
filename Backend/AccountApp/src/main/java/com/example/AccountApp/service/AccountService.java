@@ -6,14 +6,16 @@ import java.util.List;
 
 public interface AccountService {
 
-    public Account createAccount(Account account);
+    public Account createAccount(String userId, Account account);
 
-    public Account updateAccount(Account account);
+    public Account updateAccount(String userId, String accountId, Account account);
 
     public List<Account> getAllAccounts();
 
-    public Account getAccountById(String id);
+    public List<Account> getAccountsByUser(String userId);
 
-    public boolean deleteAccount(String id);
+    public Account getAccountById(String userId, String accountId);
+
+    public boolean deleteAccount(String userId, String accountId);
 
 }

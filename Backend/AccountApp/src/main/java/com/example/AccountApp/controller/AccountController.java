@@ -2,6 +2,7 @@ package com.example.AccountApp.controller;
 
 import com.example.AccountApp.entity.Account;
 import com.example.AccountApp.service.AccountService;
+import com.example.AccountApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,45 +24,41 @@ public class AccountController {
         return new ResponseEntity<>(acccounts, HttpStatus.OK);
     }
 
-    @GetMapping({"/{accountId}"})
-    public ResponseEntity<Account> getAccountById(@PathVariable String accountId){
-        Account account = accountService.getAccountById(accountId);
-        if(account != null){
-            return new ResponseEntity<>(account, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @GetMapping({"/{userId}/", "/{userId}"})
+    public ResponseEntity<List<Account>> getAccountsByUser(@PathVariable String userId){
+        List<Account> accounts = accountService.getAccountsByUser(userId);
+        return new ResponseEntity<>(accounts, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<Account> createAccount(@RequestBody Account account){
-        Account newAccount = accountService.createAccount(account);
+    @GetMapping({"/{userId}/{accountId}","/{userId}/{accountId}/" })
+    public ResponseEntity<Account> getAccountById(@PathVariable String userId, @PathVariable String accountId){
+        Account account = accountService.getAccountById(userId, accountId);
+        return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
+    @PostMapping({"/{userId}/","/{userId}"})
+    public ResponseEntity<Account> createAccount(@PathVariable String userId, @RequestBody Account account){
+        Account newAccount = accountService.createAccount(userId, account);
         return new ResponseEntity<Account>(newAccount, HttpStatus.CREATED);
     }
 
-    @PutMapping({"/{accountId}"})
-    public ResponseEntity<Account> updateAccount(@PathVariable String accountId, @RequestBody Account updateAccount){
-        updateAccount.setId(Long.parseLong(accountId));
-
-        Account updated = accountService.updateAccount(updateAccount);
-        if(updated != null){
-            return new ResponseEntity<>(updated, HttpStatus.OK);
-        }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    @PutMapping({"/{userId}/{accountId}/","/{userId}/{accountId}"})
+    public ResponseEntity<Account> updateAccount(@PathVariable String userId, @PathVariable String accountId, @RequestBody Account updateAccount){
+        Account updatedAccount = accountService.updateAccount(userId, accountId, updateAccount);
+        return new ResponseEntity<>(updatedAccount, HttpStatus.OK);
     }
 
-    @DeleteMapping({"/{id}"})
-    public ResponseEntity<Void> deleteAccount(@PathVariable  String id){
-        boolean deleted = accountService.deleteAccount(id);
-        if(deleted){
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    @DeleteMapping({"/{userId}/{accountId}/","/{userId}/{accountId}"})
+    public ResponseEntity<String> deleteAccount(@PathVariable String userId, @PathVariable  String accountId){
+        try{
+            boolean deleted = accountService.deleteAccount(userId, accountId);
+            if(deleted){
+                return new ResponseEntity<>("Account deleted successfully...",HttpStatus.NOT_FOUND);
+            }
+        }catch (Exception e){
+            System.out.println(e);
         }
-        else{
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        return new ResponseEntity<>("Deleted fail...",HttpStatus.NOT_FOUND);
     }
 
 }
