@@ -16,12 +16,15 @@ const Accounts = (props) => {
   const account = props.account;
   console.log(account);
 
+  const userId = localStorage.getItem("userId");
+
   const handleDelete = () => {
     if (confirm(`Are you sure to delete ${account.accountName} account?`)) {
       axios
-        .delete(`http://localhost:8080/account/${account.id}`)
+        .delete(`http://localhost:8080/account/${userId}/${account.id}`)
         .then((response) => {
           window.location.reload();
+          
           // alert("deleted Successfully...");
         })
         .catch((error) => {
@@ -84,7 +87,7 @@ const Accounts = (props) => {
   return (
     <div className="flex justify-center my-2">
       <div class=" border border-black w-full mx-8 rounded-sm bg-[#F6F6F6]">
-        <div class="bg-light p-4 mb-3 ">
+        <div class="bg-light p-4 ">
           <div class="flex flex-wrap">
             <div class="w-full md:w-1/3 flex flex-col justify-center">
               <p className="text-3xl">{account.accountName}</p>

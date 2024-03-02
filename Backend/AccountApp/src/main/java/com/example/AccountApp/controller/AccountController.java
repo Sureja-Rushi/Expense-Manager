@@ -53,7 +53,7 @@ public class AccountController {
         try{
             boolean deleted = accountService.deleteAccount(userId, accountId);
             if(deleted){
-                return new ResponseEntity<>("Account deleted successfully...",HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("Account deleted successfully...",HttpStatus.OK);
             }
         }catch (Exception e){
             System.out.println(e);

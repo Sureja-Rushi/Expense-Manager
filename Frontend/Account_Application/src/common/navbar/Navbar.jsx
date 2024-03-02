@@ -3,10 +3,31 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const [buttonStatus, setButtonStatus] = useState("Login");
+
+  const userId = localStorage.getItem("userId");
 
   const onClickHandle = () => {
-    navigate("/dashboard");
+    if(userId){
+      localStorage.removeItem("userId");
+      setButtonStatus("Login");
+      navigate("/");
+    }
+    else{
+      navigate("/login");
+    }
   };
+
+  
+
+  useEffect(() => {
+    if(userId){
+      setButtonStatus("Logout");
+    }
+    else{
+      setButtonStatus("Login");
+    }
+  }, [userId]);
 
   return (
     <header class="text-gray-600 body-font bg-blue-200">
@@ -34,10 +55,8 @@ const Navbar = () => {
           <a class="mr-5 hover:text-gray-900">Third Link</a>
           <a class="mr-5 hover:text-gray-900">Fourth Link</a> */}
         </nav>
-        <button onClick={() => {
-          navigate("/login")
-        }} class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-lg font-semibold mt-4 md:mt-0 ">
-          Login
+        <button onClick={onClickHandle} class="inline-flex items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-lg font-semibold mt-4 md:mt-0 ">
+          {buttonStatus}
           <svg
             fill="none"
             stroke="currentColor"

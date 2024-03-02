@@ -10,6 +10,7 @@ const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false); // State for managing dropdown visibility
   const [accounts, setAccounts] = useState([]);
   const [balance, setBalance] = useState(0);
+  const userId = localStorage.getItem("userId");
 
   // Function to toggle dropdown visibility
   const toggleDropdown = () => {
@@ -26,7 +27,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:8080/account")
+      .get(`http://localhost:8080/account/${userId}`)
       .then((response) => {
         setAccounts(response.data);
       })
@@ -72,13 +73,13 @@ const Dashboard = () => {
           </p>
         </div>
         <hr className="border-t border-gray-400 my-6 w-[94%] m-auto " />
-        <div className="flex flex-row ">
-          <div className="w-[30%] h-fit pb-8">
+        <div className=" ">
+          <div className="w-full h-fit ml-5 ">
             <div className=" ms-[8%] my-2">
               <button
                 id="dropdownDefaultButton"
                 onClick={toggleDropdown} // Attach toggleDropdown function to onClick event
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-md text-base px-5 py-2.5 w-fit text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-sm text-base px-5 py-2.5 w-fit text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
                 New{" "}
@@ -131,19 +132,11 @@ const Dashboard = () => {
                 </ul>
               </div>
             </div>
-            <div className="flex justify-center ">
-              <div class="bg-blend-lighten bg-[#28a745] w-[85%] text-white text-center flex justify-center py-2 rounded-sm ">
-                <div class="card-header">
-                  <h4 class="text-2xl my-1">Pocket Money (Total)</h4>
-                  <h1 class="text-4xl my-1">Rs. {balance}</h1>
-                </div>
-              </div>
-            </div>
           </div>
 
           {/* <hr className="border-t border-black my-6 w-[80%] m-auto " /> */}
 
-          <div className="w-[70%] border-l border-l-gray-400">
+          <div className="w-full px-24 mx-auto border-l border-l-gray-400">
             {accountComponent}
             {/* <Accounts /> */}
           </div>

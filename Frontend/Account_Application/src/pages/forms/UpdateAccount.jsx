@@ -10,6 +10,8 @@ const UpdateAccount = () => {
   const pathParts = urlPath.split("/");
 
   const id = pathParts[pathParts.length - 1];
+
+  const userId = localStorage.getItem("userId");
   
 
 //   const get = axios
@@ -39,7 +41,7 @@ const [accountAttributes, setAccountAttributes] = useState({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:8080/account/${id}`);
+        const response = await axios.get(`http://localhost:8080/account/${userId}/${id}`);
         const accountData = response.data;
         setAccountAttributes({
           accountName: accountData.accountName,
@@ -70,7 +72,7 @@ const [accountAttributes, setAccountAttributes] = useState({
     const onSubmitHandler = (event) => {
         // dispatch(createnewAccount(accountAttributes));
         axios
-          .put(`http://localhost:8080/account/${id}`, accountAttributes)
+          .put(`http://localhost:8080/account/${userId}/${id}`, accountAttributes)
           .then((response) => {
               
               navigate("/dashboard");

@@ -29,10 +29,12 @@ const CreateAccount = () => {
     });
   };
 
+  const userId = localStorage.getItem("userId");
+
   const onSubmitHandler = (event) => {
     // dispatch(createnewAccount(accountAttributes));
     axios
-      .post("http://localhost:8080/account", accountAttributes)
+      .post(`http://localhost:8080/account/${userId}`, accountAttributes)
       .then((response) => {
           alert("success");
           navigate("/dashboard");

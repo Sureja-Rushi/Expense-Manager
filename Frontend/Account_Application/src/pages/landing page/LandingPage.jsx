@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import HomeImage from "../../assets/Expense_Manager.jpg";
 import { useNavigate } from "react-router-dom";
 
 const LandingPage = () => {
 
   const navigate = useNavigate();
+  const userId = localStorage.getItem("userId");
+
+  const onClickHandle = () => {
+    if(userId){
+      navigate("/dashboard");
+    }
+    else{
+      navigate("/login");
+    }
+  }
 
   return (
     <div>
@@ -25,14 +35,10 @@ const LandingPage = () => {
               Manager
             </p>
             <div class="flex justify-center">
-              <button class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                Sign Up
-              </button>
-              <button class="ml-4 inline-flex text-gray-700 bg-gray-200 border-0 py-2 px-6 focus:outline-none hover:bg-gray-300 rounded text-lg" onClick={() => {
-                navigate("/dashboard");
-              }}>
+              <button onClick={onClickHandle} class="inline-flex text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded text-lg">
                 Get Started
               </button>
+              
             </div>
           </div>
           <div className="lg:w-1/2 sm:w-1/3 w-full rounded-lg overflow-hidden mt-6 sm:mt-0">
