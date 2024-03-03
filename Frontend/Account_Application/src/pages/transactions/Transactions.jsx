@@ -26,6 +26,7 @@ const Transactions = (props) => {
     const handleUpdate = () => {
       navigate(`/updatetransaction/${transaction.account.id}/${transaction.id}`, {state : {account : transaction.account}});
     }
+    console.log(transaction.account);
 
   return (
     <div>

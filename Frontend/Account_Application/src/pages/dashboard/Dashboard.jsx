@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"; // Import useState for managing dropdown state
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Navbar from "../../common/navbar/Navbar";
 import Accounts from "./Accounts";
 // import { useDispatch, useSelector } from "react-redux";
@@ -7,15 +7,12 @@ import Accounts from "./Accounts";
 import axios from "axios";
 
 const Dashboard = () => {
-  const [isOpen, setIsOpen] = useState(false); // State for managing dropdown visibility
+  const navigate = useNavigate();
+
   const [accounts, setAccounts] = useState([]);
   const [balance, setBalance] = useState(0);
   const userId = localStorage.getItem("userId");
 
-  // Function to toggle dropdown visibility
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
 
   // const dispatch = useDispatch();
 
@@ -32,11 +29,10 @@ const Dashboard = () => {
         setAccounts(response.data);
       })
       .catch((error) => {
-        alert(error);
+        // alert(error);
       });
   }, []);
 
-  // console.log(accounts);
 
   const totalAmount = () => {
     let totalBalance = 0;
@@ -47,11 +43,6 @@ const Dashboard = () => {
   };
 
   useEffect(() => {
-    // let totalBalance = 0;
-    // accounts.forEach(account => {
-    //   totalBalance += account.currentBalance;
-    // });
-    // setBalance(prevBalance => prevBalance + totalBalance);
     totalAmount();
   }, [accounts]);
 
@@ -61,7 +52,12 @@ const Dashboard = () => {
     <Accounts key={account.id} account={account} />
   ));
 
-  // console.log(accountComponent);
+
+  useEffect(() => {
+    if (!userId) {
+      navigate("/login");
+    }
+  }, [userId]);
 
   return (
     <div className="w-screen">
@@ -78,67 +74,21 @@ const Dashboard = () => {
             <div className=" ms-[8%] my-2">
               <button
                 id="dropdownDefaultButton"
-                onClick={toggleDropdown} // Attach toggleDropdown function to onClick event
+                onClick={() => {
+                  navigate("/createaccount")
+                }} // Attach toggleDropdown function to onClick event
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-transparent font-medium rounded-sm text-base px-5 py-2.5 w-fit text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
-                New{" "}
-                <svg
-                  className={`w-2.5 h-2.5 ms-3 transform ${
-                    isOpen ? "rotate-180" : ""
-                  }`} // Rotate arrow icon when dropdown is open
-                  aria-hidden="true"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 10 6"
-                >
-                  <path
-                    stroke="currentColor"
-                    strokeLinecap="round" // Correct attribute name to strokeLinecap
-                    strokeLinejoin="round" // Correct attribute name to strokeLinejoin
-                    strokeWidth="2" // Correct attribute name to strokeWidth
-                    d="m1 1 4 4 4-4"
-                  />
-                </svg>
+                Create new Account
               </button>
 
-              {/* Dropdown menu */}
-              <div
-                id="dropdown"
-                className={`z-10 ${
-                  isOpen ? "absolute" : "hidden"
-                } bg-white divide-y divide-gray-100 rounded-md shadow shadow-slate-800 dark:bg-gray-700 mt-2 w-52`}
-              >
-                <ul
-                  className="py-2 text-base text-gray-700 dark:text-gray-200"
-                  aria-labelledby="dropdownDefaultButton"
-                >
-                  <li>
-                    <Link
-                      to="/createaccount" // Change href to "to" for React Router Link
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Wallet
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      to="/settings" // Change href to "to" for React Router Link
-                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-                    >
-                      Transaction
-                    </Link>
-                  </li>
-                </ul>
-              </div>
+              
             </div>
           </div>
 
-          {/* <hr className="border-t border-black my-6 w-[80%] m-auto " /> */}
-
           <div className="w-full px-24 mx-auto border-l border-l-gray-400">
             {accountComponent}
-            {/* <Accounts /> */}
           </div>
         </div>
       </div>

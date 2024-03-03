@@ -20,11 +20,11 @@ const TransactionPage = () => {
 
   const id = getIdFromUrl(location.pathname);
 
-  
+  const userId = localStorage.getItem("userId");
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/account/${id}`)
+      .get(`http://localhost:8080/account/${userId}/${id}`)
       .then((response) => {
         setAccount(response.data);
       })

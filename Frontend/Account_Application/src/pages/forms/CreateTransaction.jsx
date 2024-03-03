@@ -8,7 +8,7 @@ const CreateTransaction = () => {
     const navigate = useNavigate();
 
     const account = location.state.account;
-    console.log(account.id);
+    console.log(account);
 
     const [transactionAttribute, setTransactionAttribute] = useState({
         amount: "",
