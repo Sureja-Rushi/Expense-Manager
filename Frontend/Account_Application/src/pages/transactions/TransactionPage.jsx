@@ -72,7 +72,6 @@ const TransactionPage = () => {
     <Transactions key={transaction.id} transaction={transaction} />
   ));
 
-  
 
   return (
     <div>
@@ -100,16 +99,18 @@ const TransactionPage = () => {
               Account Name:{" "}
               <span className="font-semibold">{account.accountName}</span>
             </p>
-            <p>
-              Transaction activity: 
-              <span className="font-semibold"> Rs. {Math.abs(incomeTransaction - expenseTransaction)}</span>
+            <p className="flex">
+            {account.type === 1 ? (incomeTransaction - expenseTransaction) < 0 ? 
+    <div>You have to take</div> : <div>You have to give</div> : <div>Total Expense: </div>}
+              <span className="font-semibold pl-2"> Rs. {Math.abs(incomeTransaction - expenseTransaction)}</span>
             </p>
           </div>
 
-          <div className="bg-[#bdb4b44a] mx-auto grid grid-cols-4 p-2 text-2xl font-serif mb-1">
+          <div className="bg-[#bdb4b44a] mx-auto grid grid-cols-5 p-2 text-2xl font-serif mb-1">
             <p>Date</p>
             <p>Description</p>
             <p>Amount</p>
+            <p>Spender</p>
           </div>
           <hr className="border-b border-b-black mb-1" />
           {/* <Transactions /> */}

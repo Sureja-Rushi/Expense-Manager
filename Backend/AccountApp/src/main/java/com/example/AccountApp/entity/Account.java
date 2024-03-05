@@ -14,7 +14,7 @@ public class Account {
     private Long id;
 
     private String accountName;
-    private String accountNumber;
+    private int type;
     private String description;
     private String priority;
     private Double currentBalance;
@@ -31,10 +31,10 @@ public class Account {
     }
 
 
-    public Account(Long id, String accountName, String accountNumber, String description, String priority, Double currentBalance, User user, List<Transaction> transactions) {
+    public Account(Long id, String accountName, int type, String description, String priority, Double currentBalance, User user, List<Transaction> transactions) {
         this.id = id;
         this.accountName = accountName;
-        this.accountNumber = accountNumber;
+        this.type = type;
         this.description = description;
         this.priority = priority;
         this.currentBalance = currentBalance;
@@ -58,12 +58,12 @@ public class Account {
         this.accountName = accountName;
     }
 
-    public String getAccountNumber() {
-        return accountNumber;
+    public int getType() {
+        return type;
     }
 
-    public void setAccountNumber(String acountNumber) {
-        this.accountNumber = acountNumber;
+    public void setType(int type) {
+        this.type = type;
     }
 
     public String getDescription() {
@@ -111,7 +111,7 @@ public class Account {
         return "Account{" +
                 "id=" + id +
                 ", accountName='" + accountName + '\'' +
-                ", accountNumber='" + accountNumber + '\'' +
+                ", type='" + type + '\'' +
                 ", description='" + description + '\'' +
                 ", priority='" + priority + '\'' +
                 ", currentBalance=" + currentBalance +
@@ -119,10 +119,10 @@ public class Account {
     }
 
 
-
     @PrePersist
-    public void setCurrentBalance(){ this.currentBalance = (double) 0; }
-
+    public void setCurrentBalance() {
+        this.currentBalance = (double) 0;
+    }
 
 
 }

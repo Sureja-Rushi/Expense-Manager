@@ -3,6 +3,9 @@ package com.example.AccountApp.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.annotations.NotFound;
+
 import java.util.List;
 
 @Entity
@@ -11,6 +14,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotNull(message = "Full name should not empty")
     private String name;
     private String userName;
     private String email;

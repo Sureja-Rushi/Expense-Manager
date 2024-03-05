@@ -32,8 +32,8 @@ const UpdateAccount = () => {
 
 const [accountAttributes, setAccountAttributes] = useState({
     accountName: '',
-    accountNumber: '',
     description: '',
+    type: '',
     priority: '',
     currentBalance: ''
   });
@@ -45,8 +45,8 @@ const [accountAttributes, setAccountAttributes] = useState({
         const accountData = response.data;
         setAccountAttributes({
           accountName: accountData.accountName,
-          accountNumber: accountData.accountNumber,
           description: accountData.description,
+          type: accountData.type,
           priority: accountData.priority,
           currentBalance: accountData.currentBalance,
         });
@@ -108,7 +108,7 @@ const [accountAttributes, setAccountAttributes] = useState({
                     }}
                   />
                 </div>
-                <div className="mb-4">
+                {/* <div className="mb-4">
                   <input
                     type="text"
                     className="w-full px-4 py-3 leading-tight bg-gray-200 border rounded-lg focus:outline-none focus:bg-white focus:border-gray-500"
@@ -117,7 +117,7 @@ const [accountAttributes, setAccountAttributes] = useState({
                     value={accountAttributes.accountNumber}
                     onChange={onChangeHandler}
                   />
-                </div>
+                </div> */}
                 <div className="mb-4">
                   <textarea
                     className="w-full px-4 py-3 leading-tight bg-gray-200 border rounded-lg focus:outline-none focus:bg-white focus:border-gray-500"
@@ -127,6 +127,35 @@ const [accountAttributes, setAccountAttributes] = useState({
                     onChange={onChangeHandler}
                   ></textarea>
                 </div>
+
+                <div className="text-xl mb-4 flex">
+                  <label>Transaction type:</label>
+                  <div className="px-2">
+                    <label className="">
+                      <input
+                        type="radio"
+                        value="1"
+                        name="type"
+                        checked={accountAttributes.type == 1}
+                        className="mx-2"
+                        onChange={onChangeHandler}
+                      />
+                      Transaction Record
+                    </label>
+                    <label className="ms-4">
+                      <input
+                        type="radio"
+                        value="2"
+                        name="type"
+                        checked={accountAttributes.type == 2}
+                        className="mx-2"
+                        onChange={onChangeHandler}
+                      />
+                      Expense Account
+                    </label>
+                  </div>
+                </div>
+
                 <div className="mb-4">
                   <select
                     className="w-full  px-4 py-3 leading-tight bg-gray-200 border rounded-lg focus:outline-none focus:bg-white focus:border-gray-500"

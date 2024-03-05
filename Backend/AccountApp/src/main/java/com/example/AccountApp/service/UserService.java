@@ -10,4 +10,5 @@ public interface UserService {
     public List<User> getAllUsers();
 
     public User getUserById(String userId);
+    public Long authenticate(String email, String password);
 }

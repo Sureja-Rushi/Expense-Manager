@@ -114,7 +114,7 @@ const CreateTransaction = () => {
                           checked={transactionAttribute.type == 1}
                           onChange={onChangeHandler}
                         />
-                        Income
+                        {account.accountName} spend for you
                       </label>
                       <label className="">
                         <input
@@ -125,7 +125,7 @@ const CreateTransaction = () => {
                           checked={transactionAttribute.type == 2}
                           onChange={onChangeHandler}
                         />
-                        Spend
+                        You spend for {account.accountName}
                       </label>
                     </div>
                   </div>

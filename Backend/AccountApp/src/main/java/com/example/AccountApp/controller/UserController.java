@@ -23,6 +23,18 @@ public class UserController {
         return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody User user){
+        Long isAuthenticated = userService.authenticate(user.getEmail(), user.getPassword());
+
+        if(isAuthenticated != -1){
+            return new ResponseEntity<>(isAuthenticated, HttpStatus.OK);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Incorrect email or password");
+        }
+    }
+
     @GetMapping({"/",""})
     public ResponseEntity<List<User>> getAllUser(){
         List<User> users = userService.getAllUsers();

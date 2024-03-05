@@ -15,8 +15,8 @@ public class Transaction {
     private Double amount;
     private String Description;
     private int type;
-        @JsonFormat(pattern = "yyyy-MM-dd")
-        private Date transactionDate;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date transactionDate;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "account_id")

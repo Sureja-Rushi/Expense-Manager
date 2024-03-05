@@ -13,7 +13,7 @@ const CreateTransaction = () => {
     const [transactionAttribute, setTransactionAttribute] = useState({
         amount: "",
         description: "",
-        type : "",
+        type : account.type == 2 ? "2" : "",
         transactionDate: "",
     });
 
@@ -81,7 +81,7 @@ const CreateTransaction = () => {
                     ></textarea>
                   </div>
 
-                  <div className="text-xl mb-4 flex" >
+                  <div className={`text-xl mb-4 flex ${account.type == 2 ? "hidden" : "" } `} >
                     <label>Transaction type:</label>
                     <div className="px-2">
                       <label className="">
@@ -92,9 +92,9 @@ const CreateTransaction = () => {
                           className="mx-2"
                           onChange={onChangeHandler}
                         />
-                        Income
+                        {account.accountName} spend for you
                       </label>
-                      <label className="">
+                      <label className="pl-4">
                         <input
                           type="radio"
                           value="2"
@@ -102,7 +102,7 @@ const CreateTransaction = () => {
                           className="mx-2"
                           onChange={onChangeHandler}
                         />
-                        Spend
+                        You spend for {account.accountName}
                       </label>
                     </div>
                   </div>

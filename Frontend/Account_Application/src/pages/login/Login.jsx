@@ -27,28 +27,41 @@ const Login = () => {
     });
   };
 
-  const onSubmitHandler = (event) => {
+  const onSubmitHandler = async (event) => {
     event.preventDefault();
 
-    axios
-        .get("http://localhost:8080/user")
-        .then((response) => {
-            const users = response.data;
-            const foundUser = users.find((user) => {
-                return user.email === loginAttribute.email && user.password === loginAttribute.password;
-            });
+    // axios
+    //     .get("http://localhost:8080/user")
+    //     .then((response) => {
+    //         const users = response.data;
+    //         const foundUser = users.find((user) => {
+    //             return user.email === loginAttribute.email && user.password === loginAttribute.password;
+    //         });
 
-            if (foundUser) {
-              localStorage.setItem("userId",foundUser.id);
-                alert("Login successful...");
-                navigate("/dashboard");
-            } else {
-                alert("Email or password is incorrect...");
-            }
-        })
-        .catch((error) => {
-            alert(error);
-        });
+    //         if (foundUser) {
+    //           localStorage.setItem("userId",foundUser.id);
+    //             alert("Login successful...");
+    //             navigate("/dashboard");
+    //         } else {
+    //             alert("Email or password is incorrect...");
+    //         }
+    //     })
+    //     .catch((error) => {
+    //         alert(error);
+    //     });
+
+    try{
+      const response = await axios.post("http://localhost:8080/user/login",loginAttribute);
+      console.log(response.data);
+      localStorage.setItem("userId", response.data);
+      alert("Login Successfull...");
+      navigate("/dashboard");
+    }catch(error){
+      // alert(error.response.status == 401 ? "hello" : "" );
+      if(error.response.status == 401){
+        alert("Invalid email or password");
+      }
+    }
 };
 
   return (
@@ -56,36 +69,38 @@ const Login = () => {
       <section class="text-gray-600 body-font">
         <div class="container px-5 py-24 mx-auto flex flex-col">
           <div class="flex flex-col text-center w-full mb-12">
-            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
-              Master Cleanse Reliac Heirloom
+            <h1 class="sm:text-4xl font-medium title-font mb-4 text-gray-900">
+              Login
             </h1>
-            <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
+            {/* <p class="lg:w-2/3 mx-auto leading-relaxed text-base">
               Whatever cardigan tote bag tumblr hexagon brooklyn asymmetrical
               gentrify, subway tile poke farm-to-table. Franzen you probably
               haven't heard of them man bun deep.
-            </p>
+            </p> */}
           </div>
           <div class="flex lg:w-2/3 w-full sm:flex-row flex-col mx-auto px-8 sm:space-x-4 sm:space-y-0 space-y-4 sm:px-0 items-end">
             <div class="relative flex-grow w-full">
-              <label for="email" class="leading-7 text-sm text-gray-600">
+              <label for="email" class="leading-7 text-base text-gray-600">
                 Email
               </label>
               <input
                 type="email"
                 id="full-name"
                 name="email"
+                placeholder="name@company.com"
                 onChange={onChangeHandler}
                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
             <div class="relative flex-grow w-full">
-              <label for="password" class="leading-7 text-sm text-gray-600">
+              <label for="password" class="leading-7 text-base text-gray-600">
                 Password
               </label>
               <input
                 type="password"
                 id="email"
                 name="password"
+                placeholder="********"
                 onChange={onChangeHandler}
                 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-transparent focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />

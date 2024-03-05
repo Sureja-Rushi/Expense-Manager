@@ -30,10 +30,11 @@ const Transactions = (props) => {
 
   return (
     <div>
-        <div className={`w-full grid grid-cols-4 p-2 text-xl my-1 ${transaction.type == 1 ? "bg-green-300" : "bg-red-300" } `}>
+        <div className={`w-full grid grid-cols-5 p-2 text-xl my-1 ${transaction.type == 1 ? "bg-green-300" : "bg-red-300" } `}>
             <p>{transaction.transactionDate}</p>
             <p>{transaction.description}</p>
             <p>{transaction.amount}</p>
+            <p>{transaction.type == 1 ? <div>{transaction.account.accountName}</div> : <div>You</div> }</p>
             <div className="grid grid-cols-2">
             <button onClick={handleDelete}>Delete</button>
             <button onClick={handleUpdate} >Update</button>

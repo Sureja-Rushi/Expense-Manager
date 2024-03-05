@@ -92,18 +92,9 @@ const Accounts = (props) => {
             <div class="w-full md:w-1/3 flex flex-col justify-center">
               <p className="text-3xl">{account.accountName}</p>
               <br />
+            
               <p
-                className={`${
-                  account.accountNumber === "" ? "hidden" : ""
-                } text-base`}
-              >
-                <span className="font-semibold">Account Number:</span>
-                <span className="">{account.accountNumber}</span>
-              </p>
-              <p
-                className={`${
-                  account.accountNumber === "" ? "" : "hidden"
-                } text-base`}
+                className={`text-base`}
               >
                 <span className="font-semibold">Description: </span>
                 <span className="">{account.description}</span>
@@ -111,7 +102,7 @@ const Accounts = (props) => {
             </div>
             <div class="w-full md:w-1/3 text-center flex flex-col justify-center">
               <p className="text-xl">Transaction</p>
-              <p class="text-3xl font-bold">{Math.abs(incomeTransaction - expenseTransaction)}</p>
+              <p class="text-3xl font-bold">Rs. {Math.abs(incomeTransaction - expenseTransaction)}</p>
             </div>
             <div class="w-full md:w-1/3 mt-4 md:mt-0 ">
               <ul class="list-group">
