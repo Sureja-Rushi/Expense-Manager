@@ -102,7 +102,7 @@ const CreateTransaction = () => {
                       onChange={onChangeHandler}
                     ></textarea>
                   </div>
-                  <div className="text-xl mb-4 flex">
+                  <div className={`text-xl mb-4 flex ${account.type == 2 ? "hidden" : "" } `} >
                     <label>Transaction type:</label>
                     <div className="px-2">
                       <label className="">
@@ -110,19 +110,19 @@ const CreateTransaction = () => {
                           type="radio"
                           value="1"
                           name="type"
-                          className="mx-2"
                           checked={transactionAttribute.type == 1}
+                          className="mx-2"
                           onChange={onChangeHandler}
                         />
                         {account.accountName} spend for you
                       </label>
-                      <label className="">
+                      <label className="pl-4">
                         <input
                           type="radio"
                           value="2"
                           name="type"
-                          className="mx-2"
                           checked={transactionAttribute.type == 2}
+                          className="mx-2"
                           onChange={onChangeHandler}
                         />
                         You spend for {account.accountName}

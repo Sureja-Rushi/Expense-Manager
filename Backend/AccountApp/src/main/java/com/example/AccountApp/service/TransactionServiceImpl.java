@@ -7,6 +7,7 @@ import com.example.AccountApp.repository.TransactionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,6 +36,15 @@ public class TransactionServiceImpl implements TransactionService{
                     return transaction;
                 }
             }
+        }
+        return null;
+    }
+
+    @Override
+    public List<Transaction> getTransactionByDate(String accountId, Date transactionDate) {
+        Optional<Account> account = accountRepository.findById(Long.parseLong(accountId));
+        if(account.isPresent()){
+            return transactionRepository.findByTransactionDate(transactionDate);
         }
         return null;
     }
@@ -95,4 +105,6 @@ public class TransactionServiceImpl implements TransactionService{
         }
         return false;
     }
+
+
 }

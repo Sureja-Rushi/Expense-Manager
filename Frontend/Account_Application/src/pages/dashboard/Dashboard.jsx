@@ -5,6 +5,7 @@ import Accounts from "./Accounts";
 // import { useDispatch, useSelector } from "react-redux";
 // import { getAccounts } from "../../actions/Actions";
 import axios from "axios";
+import { IoIosAddCircle } from "react-icons/io";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -81,6 +82,7 @@ const Dashboard = () => {
                 type="button"
               >
                 Create new Account
+                <IoIosAddCircle className="align-middle text-2xl ml-2" />
               </button>
 
               

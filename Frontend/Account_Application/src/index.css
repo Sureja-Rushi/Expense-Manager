@@ -70,3 +70,19 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #515251;
+  border-radius: 100px;
+}
+
+
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

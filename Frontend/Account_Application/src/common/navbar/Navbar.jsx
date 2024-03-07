@@ -57,7 +57,7 @@ const Navbar = () => {
           <a class="mr-5 hover:text-gray-900">Third Link</a>
           <a class="mr-5 hover:text-gray-900">Fourth Link</a> */}
         </nav>
-        <button onClick={onClickHandle} class="flex w-fit gap-2 items-center bg-gray-100 border-0 py-1 px-3 focus:outline-none hover:bg-gray-200 rounded text-lg font-semibold mt-4 md:mt-0 ">
+        <button onClick={onClickHandle} class="flex w-fit gap-2 items-center text-white bg-blue-800 py-1 px-3 focus:outline-none hover:bg-blue-600 rounded-sm text-lg font-semibold mt-4 md:mt-0 transition-colors ease-in-out duration-300 ">
           {buttonStatus}
           {buttonStatus == "Login" ? <MdOutlineLogin className="text-2xl" /> : <MdOutlineLogout  className="text-2xl" /> }
         </button>
