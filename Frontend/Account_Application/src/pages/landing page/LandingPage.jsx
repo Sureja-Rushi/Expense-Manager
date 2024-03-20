@@ -25,7 +25,7 @@ const LandingPage = () => {
               {/* Before they sold out
               <br class="hidden lg:inline-block" />
               readymade gluten */}
-              Personal Expense Manager
+              Money Tracker
             </h1>
             <p class="mb-8 leading-relaxed text-xl">
               Start Your Money Adventure: Manage Spending, Plan Budgets, and
